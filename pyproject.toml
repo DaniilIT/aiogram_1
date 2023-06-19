@@ -1,0 +1,30 @@
+[tool.poetry]
+name = "masson"
+version = "0.1.0"
+description = ""
+license = "MIT"
+authors = ["Manuilov Daniil <manuilovdaniil@yandex.ru>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+aiogram = {url = "https://github.com/aiogram/aiogram/archive/refs/heads/dev-3.x.zip"}
+environs = "^9.5.0"
+
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^3.3.3"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.isort]
+py_version = 311
+profile = "black"
+known_first_party = ["commands"]
+
+[tool.flake8]
+max-complexity = 10
+max-line-length = 120
