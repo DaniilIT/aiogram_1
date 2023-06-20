@@ -4,7 +4,7 @@ import logging
 from aiogram import Bot, Dispatcher, Router, types
 from config import LOG_LEVEL, TG_TOKEN
 
-from commands import register_user_commands
+from commands import commands_for_bot, register_user_commands
 
 router = Router()
 
@@ -24,6 +24,7 @@ async def main():
     bot = Bot(token=TG_TOKEN)
 
     register_user_commands(dp)
+    await bot.set_my_commands(commands=commands_for_bot)
 
     await dp.start_polling(bot)
 
