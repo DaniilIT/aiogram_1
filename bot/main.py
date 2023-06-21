@@ -2,8 +2,8 @@ import asyncio
 import logging
 
 from aiogram import Bot, Dispatcher, Router, types
-from config import DB_HOST, DB_NAME, DB_PASSWORD, DB_PORT, DB_USER, LOG_LEVEL, TG_TOKEN
-from db import BaseModel, create_async_engine, get_session_maker, proceed_schemas
+from config import DB_HOST, DB_NAME, DB_PASS, DB_PORT, DB_USER, LOG_LEVEL, TG_TOKEN
+from db import create_async_engine, get_session_maker
 from sqlalchemy.engine import URL
 
 from commands import commands_for_bot, register_user_commands
@@ -26,6 +26,8 @@ async def echo_handler(message: types.Message):
 
 async def main():
     dp = Dispatcher()
+    # dp.message.middleware(RegisterCheckMiddleware)
+    # dp.callback_query.middleware(RegisterCheckMiddleware)
     dp.include_router(router)
 
     bot = Bot(token=TG_TOKEN)
@@ -37,17 +39,17 @@ async def main():
     postgres_url = URL.create(
         drivername='postgresql+asyncpg',
         username=DB_USER,
-        password=DB_PASSWORD,
+        password=DB_PASS,
         host=DB_HOST,
         port=DB_PORT,
         database=DB_NAME
     )
 
     async_engine = create_async_engine(postgres_url)
-    session_maker = get_session_maker(async_engine)  # noqa F841
-    await proceed_schemas(async_engine, BaseModel.metadata)
+    session_maker = get_session_maker(async_engine)
+    # await proceed_schemas(async_engine, BaseModel.metadata)
 
-    await dp.start_polling(bot)
+    await dp.start_polling(bot, session_maker=session_maker)
 
 
 if __name__ == '__main__':

@@ -3,6 +3,7 @@ __all__ = ['commands_for_bot', 'register_user_commands']
 from aiogram import F, Router  # magic filter
 from aiogram.filters import Command, CommandStart
 from aiogram.types import BotCommand
+from middlewares.register_check import RegisterCheckMiddleware
 
 from .callback_data_states import TestCallBackData
 from .commands_info import commands_list
@@ -19,6 +20,9 @@ commands_for_bot = [BotCommand(command=cmd[0], description=cmd[1]) for cmd in co
 
 
 def register_user_commands(router: Router):
+    router.message.register(RegisterCheckMiddleware)
+    router.callback_query.register(RegisterCheckMiddleware)
+
     router.message.register(command_help_handler, Command(commands=['help']))
     router.message.register(func_help_handler, F.text == 'Помощь')
     router.message.register(command_start_handler, CommandStart())  # Command(commands=['start'])
