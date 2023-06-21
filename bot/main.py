@@ -6,6 +6,9 @@ from config import LOG_LEVEL, TG_TOKEN
 
 from commands import commands_for_bot, register_user_commands
 
+# пример
+# https://github.com/MasterGroosha/telegram-report-bot/tree/7768165cd2339a91cafe0e953301d5f4f9c86e5d
+
 router = Router()
 
 
