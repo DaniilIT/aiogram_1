@@ -1,7 +1,6 @@
 from aiogram import types
 from aiogram.utils.keyboard import InlineKeyboardBuilder, InlineKeyboardButton
-
-from commands.callback_data_states import TestCallBackData
+from handlers.callback_data_states import TestCallBackData
 
 
 async def command_settings_handler(message: types.Message):

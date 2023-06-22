@@ -31,3 +31,8 @@ known_first_party = ["commands"]
 [tool.flake8]
 max-complexity = 10
 max-line-length = 120
+exclude = "venv/,*/migrations/"
+per-file-ignores = [
+    "*/migrations/*: E501, E402",
+    "venv/*: E501",
+]

@@ -1,8 +1,7 @@
 from aiogram import types
 from aiogram.filters import CommandObject
 from aiogram.utils.keyboard import InlineKeyboardButton
-
-from commands.commands_info import commands_list
+from handlers.commands_info import commands_list
 
 
 async def command_help_handler(message: types.Message, command: CommandObject):

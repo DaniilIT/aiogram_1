@@ -11,7 +11,7 @@ from sqlalchemy.ext.asyncio import async_engine_from_config
 sys.path.append(os.path.join(sys.path[0], 'bot'))
 
 from config import DB_HOST, DB_NAME, DB_PASS, DB_PORT, DB_USER  # noqa: E402
-from db import BaseModel  # noqa: E402
+from db import Base  # noqa: E402
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -33,7 +33,7 @@ if config.config_file_name is not None:
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-target_metadata = BaseModel.metadata
+target_metadata = Base.metadata
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
