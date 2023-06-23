@@ -25,10 +25,10 @@ async def get_user(user_id: int, session_maker: async_sessionmaker) -> Optional[
             stmt = select(User).options(selectinload(User.posts)).where(User.user_id == user_id)
             result = await session.execute(stmt)
             # user = result.one_or_none()
-            return result.scalars().one()
+            return result.scalars().one_or_none()
 
 
-async def create_user(user_id: int, username: str, session_maker: async_sessionmaker):
+async def create_user(user_id: int, username: str, session_maker: async_sessionmaker) -> Optional[User]:
     async with session_maker() as session:
         async with session.begin():
             user = User(
@@ -40,3 +40,5 @@ async def create_user(user_id: int, username: str, session_maker: async_sessionm
                 # session.add(user)
             except IntegrityError:
                 pass
+
+    return user

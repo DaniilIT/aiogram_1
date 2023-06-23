@@ -2,7 +2,8 @@ import asyncio
 import logging
 
 from aiogram import Bot, Dispatcher
-from aiogram.fsm.storage.memory import MemoryStorage
+from aiogram.fsm.storage.redis import RedisStorage
+from aioredis import redis
 from config import DB_HOST, DB_NAME, DB_PASS, DB_PORT, DB_USER, LOG_LEVEL, TG_TOKEN
 from db import create_async_engine, get_session_maker
 from handlers import commands_for_bot, register_user_commands
@@ -26,7 +27,8 @@ from sqlalchemy.engine import URL
 
 
 async def main(logger: logging.Logger):
-    storage = MemoryStorage()
+    # storage = MemoryStorage()
+    storage = RedisStorage(redis=redis)
     dp = Dispatcher(storage=storage)
 
     dp.message.middleware(RegisterCheckMiddleware())
