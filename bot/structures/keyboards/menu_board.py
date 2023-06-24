@@ -10,7 +10,7 @@ MENU_BOARD = ReplyKeyboardMarkup(
         [
             KeyboardButton(text='Аккаунт'),
             KeyboardButton(
-                text='WebApp',
+                text='WebApp',  # https://github.com/MassonNN/just-test-pages
                 web_app=WebAppInfo(url='https://massonnn.github.io/just-test-pages/')
             )
         ]

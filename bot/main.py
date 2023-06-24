@@ -38,6 +38,12 @@ async def main(logger: logging.Logger):
 
     bot = Bot(token=TG_TOKEN, parse_mode='HTML')
     await bot.set_my_commands(commands=commands_for_bot)
+    # await bot.set_chat_menu_button(
+    #     menu_button=MenuButtonWebApp(
+    #         text='Открыть веб приложение',
+    #         web_app=WebAppInfo(url='https://google.com')
+    #     )
+    # )
     register_user_commands(dp)
 
     # postgres_url = f'postgresql+asyncpg://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
