@@ -12,3 +12,7 @@ DB_PASS = env('DB_PASS')
 DB_NAME = env('DB_NAME')
 DB_HOST = env('DB_HOST', default='localhost')
 DB_PORT = env('DB_PORT', default='5432')
+
+REDIS_PASS = env('REDIS_PASS')
+REDIS_HOST = env('REDIS_HOST')
+REDIS_PORT = env('REDIS_PORT')

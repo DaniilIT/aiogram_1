@@ -3,6 +3,7 @@ __all__ = ['commands_for_bot', 'register_user_commands']
 from aiogram import F, Router  # magic filter
 from aiogram.enums import ContentType
 from aiogram.filters import Command, CommandStart
+from aiogram.fsm.state import any_state
 from aiogram.types import BotCommand
 from structures.callback_data_factories import PostCD, PostCDAction
 from structures.fsm_groups import PostStates
@@ -27,6 +28,7 @@ from .help import (
 )
 from .settings import callback_settings_handler, command_settings_handler
 from .start import (
+    call_start_handler,
     command_account_handler,
     command_channels_handler,
     command_posts_handler,
@@ -67,6 +69,7 @@ def register_user_commands(router: Router):
 
     router.message.register(web_app_data_receive, F.content_type.in_(ContentType.WEB_APP_DATA, ))
 
+    router.callback_query.register(call_start_handler, F.data == 'menu', any_state)
     router.callback_query.register(call_help_handler, F.data == 'help')  # из command_settings_handler
     router.callback_query.register(call_clear_help_handler, F.data == 'clear')
     router.callback_query.register(callback_settings_handler, TestCallBackData.filter())

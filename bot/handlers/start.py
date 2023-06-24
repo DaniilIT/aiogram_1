@@ -1,11 +1,13 @@
-from aiogram import types
+from contextlib import suppress
+
 from aiogram.fsm.context import FSMContext
+from aiogram.types import CallbackQuery, Message
 from db.user import get_user
 from sqlalchemy.ext.asyncio import async_sessionmaker
 from structures import keyboards
 from structures.fsm_groups import PostStates
 
-# async def command_start_handler(message: types.Message):
+# async def command_start_handler(message: Message):
 #     # await message.answer('Привет')
 #     menu_builder = ReplyKeyboardBuilder()
 #     menu_builder.button(text='Помощь')
@@ -25,14 +27,24 @@ from structures.fsm_groups import PostStates
 #     )
 
 
-async def command_start_handler(message: types.Message):
-    await message.answer(
+async def command_start_handler(message: Message) -> Message:
+    return await message.answer(
         'Меню',
         reply_markup=keyboards.MENU_BOARD
     )
 
 
-async def command_posts_handler(message: types.Message, session_maker: async_sessionmaker, state: FSMContext):
+async def call_start_handler(call: CallbackQuery, state: FSMContext):
+    await state.clear()
+    with suppress(Exception):
+        await call.message.delete()
+    await call.message.answer(
+        'Меню',
+        reply_markup=keyboards.MENU_BOARD
+    )
+
+
+async def command_posts_handler(message: Message, session_maker: async_sessionmaker, state: FSMContext):
     user = await get_user(message.from_user.id, session_maker)
     await message.answer(
         'Твои посты',
@@ -41,13 +53,13 @@ async def command_posts_handler(message: types.Message, session_maker: async_ses
     await state.set_state(PostStates.waiting_for_select)
 
 
-async def command_channels_handler(message: types.Message):
+async def command_channels_handler(message: Message):
     await message.answer(
         'Твои каналы'
     )
 
 
-async def command_account_handler(message: types.Message):
+async def command_account_handler(message: Message):
     await message.answer(
         'Аккаунт'
     )

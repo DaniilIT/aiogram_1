@@ -11,13 +11,16 @@ python = "^3.11"
 aiogram = {url = "https://github.com/aiogram/aiogram/archive/refs/heads/dev-3.x.zip"}
 environs = "^9.5.0"
 sqlalchemy = "^2.0.16"
+alembic = "^1.11.1"
 asyncpg = "^0.27.0"
 redis = "^4.5.5"
+magic-filter = "^1.0.9"
 
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^3.3.3"
-alembic = "^1.11.1"
+pytest = "^7.3.2"
+pytest-asyncio = "^0.21.0"
 
 [build-system]
 requires = ["poetry-core"]
@@ -37,3 +40,11 @@ per-file-ignores = [
     "*/migrations/*: E501, E402",
     "venv/*: E501",
 ]
+
+[tool.pytest.ini_options]
+pythonpath = [
+  ".",
+  "bot",
+]
+cache_dir = "bot/tests/.pytest_cache"
+filterwarnings = "ignore::DeprecationWarning"

@@ -1,4 +1,4 @@
-from bot.structures.callback_data_factories.post_data import PostCD, PostCDAction
+from .post_data import PostCD, PostCDAction
 
 __all__ = [
     'PostCD',

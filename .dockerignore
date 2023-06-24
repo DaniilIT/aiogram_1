@@ -1,0 +1,49 @@
+# Byte-compiled
+__pycache__/
+
+# File created by Mac OS X
+.DS_Store
+
+# PyCharm
+.idea/
+
+# Environments
+.env.example
+env/
+venv/
+ENV/
+
+
+# Data
+*.png
+*.csv
+*.json
+*.yaml
+*.yml
+*.pkl
+*.sqlite3
+*.db
+
+# Logs
+*.log
+
+# Poetry
+poetry.lock
+
+# Git
+.git
+.gitignore
+.pre-commit-config.yaml
+LICENSE
+
+# Docker
+Dockerfile
+.dockerignore
+
+# Tests
+.pytest_cache/
+pytest.ini
+tests/
+
+# Project
+README.md
